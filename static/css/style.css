@@ -1,0 +1,45 @@
+.modal-body table
+{
+  table-layout: fixed;
+}
+
+.editable-popup{top:-61px !important;left:245px !important;}
+
+#stix-form{
+	width: 50%;
+	float:left;
+	margin-left: 1%;
+	overflow: auto;
+}
+
+.modal-body table td
+{
+  word-wrap:break-word
+}
+
+#file-list
+{
+	float: left;
+	margin: 0%;
+}
+
+#upload-form{
+	width: auto;
+}
+
+#upload{
+	float: left;
+	margin-top: 0%;
+	margin-left: 0%;
+}
+
+#attachments{
+	display: inline-block;
+	margin-left: 2%;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.modal-dialog{
+	width: 60%;
+}

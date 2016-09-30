@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropzone.css') }}">
+
+  </head>
+
+ <nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/parser">Upload</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" action="/search" method="POST">
+        <div class="form-group">
+          <input type="text" name="search" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <body>
+
+    <div class="jumbotron">
+      <h1 class="display-3">Email to STIX Parser</h1>
+      <p class="lead">Converts a given email (.msg) to a STIX indicator associating any file attachments contained in the email. File attachments may optionally be set to a Cuckoo instance for analysis.</p>
+      <hr class="m-y-2">
+      <p class="lead">
+        <form id="upload-form" action="/parser" method="post" enctype="multipart/form-data">
+        <input class="btn btn-secondary btn-lg" type="file" name="file" style="float:left;">
+        <input id="upload" class="btn btn-primary btn-lg" type="submit" value="Upload">
+        </form>
+      </p>
+    </div>
+
+<!-- 
+    <form action="/parser"
+      class="dropzone"
+      id="upload-form"></form> -->
+        
+
+    <!--jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.file-input.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+#Install Required CentOS packages
+yum install gcc
+yum install python-devel
+yum install python-lxml
+yum install openssl-devel
+yum install postgresql-server postgresql-contrib
+yum install postgresql-devel
+yum install openldap-devel
+
+#Configure PostgreSQL
+sudo postgresql-setup initdb
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+sudo vim /var/lib/psql/data/pg_hba.conf -> update ident to md5 for both host entries near bottom of file; It should look like below:
+host	all		all		127.0.0.1/32		md5
+host 	all		all		::1/128			md5
+
+sudo -i -u postgres -> switch to postgres user
+createuser --interactive -> create user w/ limited privs
+createdb flask -> create db
+psql -d postgres -> connect to new db
+
+#Set up virtualenv and python dependencies 
+easy_install pip 
+pip install virtualenv
+source /virtualenv-flask/bin/activate
+pip install -r requirements.py

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  </head>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Upload</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" action="/search" method="POST">
+        <div class="form-group">
+          <input type="text" name="search" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+  <body>
+        <div class="panel panel-default" id="stix-form">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="text-align: center">Edit the email attributes before building STIX document</h3>
+        </div>
+        <div class="panel-body" style="text-align: center; margin: auto; border: 1px solid black; padding: 10px;">
+          <ul class="list-group" id="asset-list">
+
+            <li class="list-group-item"><strong>Sender: </strong><span id="sender" data-type="text" data-url="/parser/update" data-pk={{data['email']['sender']}} data-title="Enter a new value.">{{data['email']['sender']}}</li></span>
+
+            <li class="list-group-item"><strong>Subject: </strong><span id="subject" data-type="text" data-url="/parser/update" data-pk={{data['email']['subject']}} data-title="Enter a new value.">{{data['email']['subject']}}</li></span>
+
+
+            <li class="list-group-item"><strong>From Address: </strong>
+            <span  id="from_address" data-type="text" data-url="/parser/update" data-pk={{data['email']['from_address']}} data-title="Enter a new value.">
+                {{data['email']['from_address']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>X_Mailer: </strong>
+            <span  id="x_mailer" data-type="text" data-url="/parser/update" data-pk={{data['email']['x_mailer']}} data-title="Enter a new value.">
+                {{data['email']['x_mailer']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>To: </strong>
+            <span  id="to" data-type="text" data-url="/parser/update" data-pk={{data['email']['to']}} data-title="Enter a new value.">
+                {% for i in data['email']['to'] -%}
+            {% filter trim %}
+                {% if i == data['email']['to'][-1] -%}
+                  {{i}}
+                {% else %}
+                  {{i + ', '}}
+                {%- endif %}
+            {% endfilter %}
+            {%- endfor %}
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>X Originating IP: </strong>
+            <span  id="x_originating_ip" data-type="text" data-url="/parser/update" data-pk={{data['email']['x_originating_ip']}} data-title="Enter a new value.">
+                {{data['email']['x_originating_ip']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>Date: </strong>
+            <span  id="date" data-type="text" data-url="/parser/update" data-pk={{data['email']['date']}} data-title="Enter a new value.">
+                {{data['email']['date']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>Reply To: </strong>
+            <span  id="reply_to" data-type="text" data-url="/parser/update" data-pk={{data['email']['reply_to']}} data-title="Enter a new value.">
+                {{data['email']['reply_to']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>Helo: </strong>
+            <span  id="helo" data-type="text" data-url="/parser/update" data-pk={{data['email']['helo']}} data-title="Enter a new value.">
+                {{data['email']['helo']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>Message ID: </strong>
+            <span  id="message_id" data-type="text" data-url="/parser/update" data-pk={{data['email']['message_id']}} data-title="Enter a new value.">
+                {{data['email']['message_id']}} 
+            </span>
+            </li>
+
+            <li class="list-group-item"><strong>TLP: </strong>
+            <span id="tlp" data-type="select" data-url="/parser/update" data-pk={{data['email']['tlp']}}">
+                {{data['email']['tlp']}} 
+            </span>
+            </li>
+
+              <br><br>
+
+                      <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#HeaderModal">
+            View Raw Header
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="HeaderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Raw Header</h4>
+                </div>
+                <div class="modal-body">
+                  <pre style="text-align:left">
+{{data['email']['raw_header']}}
+                  </pre>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#BodyModal">
+            View Raw Body
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="BodyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Raw Body</h4>
+                </div>
+                <div class="modal-body">
+                  <pre style="text-align:left">
+{{data['email']['raw_body']}}
+                  </pre>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <br><br>
+
+            <form action="/stix" method="post">
+              <button name="generate-stix" class="btn btn-success btn-lg" value="stix">Generate STIX!</button>
+            </form>
+
+
+        </div>
+      </div>
+
+      <div class="panel panel-warning" id="attachments">
+      <div class="panel-heading">File Attachments</div>
+      <div class="panel-body" style="padding:0%;">
+          <div class="list-group" id="file-list">
+          {% if data['attach']|length > 0 %}
+            {% for i in data['attach'] %}
+              <a href="#" data-toggle="modal" data-target="#CuckooModal"class="list-group-item list-group-item-action list-group-item-warning" id="{{i['name']}}"><strong>{{i['name']}}</strong>  -  {{i['type']}}</a>
+            {% endfor %}
+          {% else %}
+              <h4>No attachments found.</h4>
+          {% endif %}
+          </div>
+        </div>
+    </div>
+
+
+          <!-- Modal -->
+      <div class="modal fade" id="CuckooModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Cuckoo</h4>
+            </div>
+            <div class="modal-body">
+              Send file to Cuckoo?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="cuckoobutton" type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+          <!-- Modal -->
+      <div class="modal fade" id="CuckooCompleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Cuckoo</h4>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="{{url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}"></script>
+  </body>
+</html>
